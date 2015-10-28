@@ -67,6 +67,9 @@ public class People {
                         int idNum = Integer.valueOf(id);
                         Person person = people.get(idNum - 1);
                         m.put("person", person);
+
+                        //Without mustache hashtag
+                        //m.put("firstName", person.firstName);
                     }
                     catch (Exception e){
 
