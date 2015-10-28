@@ -68,7 +68,7 @@ public class People {
                         Person person = people.get(idNum - 1);
                         m.put("person", person);
 
-                        //Without mustache hashtag
+                        //Without mustache hash tag
                         //m.put("firstName", person.firstName);
                     }
                     catch (Exception e){
