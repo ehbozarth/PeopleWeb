@@ -69,6 +69,7 @@ public class People {
                         m.put("person", person);
 
                         //Without mustache hash tag
+                        //Set one field at a time to one person
                         //m.put("firstName", person.firstName);
                     }
                     catch (Exception e){
