@@ -67,13 +67,6 @@ public class People {
                         int idNum = Integer.valueOf(id);
                         Person person = people.get(idNum - 1);
                         m.put("person", person);
-//                        m.put("id", person.id);
-//                        m.put("firstName", person);
-//                        m.put("lastName", person);
-//                        m.put("email", person);
-//                        m.put("country", person);
-//                        m.put("ip", person);
-
                     }
                     catch (Exception e){
 
@@ -83,8 +76,6 @@ public class People {
                 new MustacheTemplateEngine()
 
         );//End of Spark.get() "/person"
-
-
 
     }//End od Main Method
 
