@@ -57,26 +57,33 @@ public class People {
                 new MustacheTemplateEngine()
         );//End of Spark.get() "/"
 
-        /*
         Spark.get(
                 "/person",
                 ((request, response) -> {
                     HashMap m = new HashMap();
-                    String id = request.queryParams("person_info");
+                    String id = request.queryParams("id");
+
                     try{
                         int idNum = Integer.valueOf(id);
-                        Person
+                        Person person = people.get(idNum - 1);
+                        m.put("person", person);
+//                        m.put("id", person.id);
+//                        m.put("firstName", person);
+//                        m.put("lastName", person);
+//                        m.put("email", person);
+//                        m.put("country", person);
+//                        m.put("ip", person);
+
                     }
                     catch (Exception e){
 
                     }
+                    return new ModelAndView(m,"person.html");
+                }),
+                new MustacheTemplateEngine()
 
+        );//End of Spark.get() "/person"
 
-                })
-
-        );
-
-           */
 
 
     }//End od Main Method

@@ -2,10 +2,10 @@
 <body>
 
 {{#people}}
-{{id}} {{firstName}} {{lastName}} <a href="/?person={{person_info}}">Person Info</a><br>
+<a href="/person?id={{id}}">{{id}} {{firstName}} {{lastName}}</a><br>
 {{/people}}
 
-
+<br>
 <a href="/?page={{new_counter}}">Next Page</a>
 </body>
 </html>
