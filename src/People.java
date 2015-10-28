@@ -1,6 +1,14 @@
+import spark.ModelAndView;
+import spark.Session;
+import spark.Spark;
+import spark.template.mustache.MustacheTemplateEngine;
+
 import java.io.File;
 import java.io.FileReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 
 /**
  * Created by zach on 10/19/15.
@@ -12,6 +20,7 @@ public class People {
         String fileContent = readFile("people.csv");
         String[] lines = fileContent.split("\n");
 
+
         for (String line : lines) {
             if (line == lines[0])
                 continue;
@@ -19,10 +28,58 @@ public class People {
             String[] columns = line.split(",");
             Person person = new Person(Integer.valueOf(columns[0]), columns[1], columns[2], columns[3], columns[4], columns[5]);
             people.add(person);
-        }
+        }//End of for loop
 
         // write Spark route here
-    }
+        Spark.get(
+                "/",
+                (request, response) -> {
+                    String offset= request.queryParams("page");
+                    int counter;
+                    if(offset == null) {
+                        counter = 0;
+                    }
+                    else{
+                        counter = Integer.valueOf(offset);
+                    }
+                    if(counter >= people.size()){
+                        Spark.halt(403);
+                    }
+                    else{
+                        ArrayList<Person> tempList = new ArrayList<Person>(people.subList(counter,counter+20));
+                        HashMap m = new HashMap();
+                        m.put("people", tempList);
+                        m.put("new_counter", counter+20);
+                        return new ModelAndView(m, "people.html");
+                    }
+                    return new ModelAndView(new HashMap<>(), "people.html");
+                },
+                new MustacheTemplateEngine()
+        );//End of Spark.get() "/"
+
+        /*
+        Spark.get(
+                "/person",
+                ((request, response) -> {
+                    HashMap m = new HashMap();
+                    String id = request.queryParams("person_info");
+                    try{
+                        int idNum = Integer.valueOf(id);
+                        Person
+                    }
+                    catch (Exception e){
+
+                    }
+
+
+                })
+
+        );
+
+           */
+
+
+    }//End od Main Method
 
     static String readFile(String fileName) {
         File f = new File(fileName);
