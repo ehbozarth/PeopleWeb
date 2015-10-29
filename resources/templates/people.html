@@ -6,6 +6,7 @@
 {{/people}}
 
 <br>
-<a href="/?page={{new_counter}}">Next Page</a>
+{{#showPrev}}<a href="/?page={{old_counter}}">Prev Page</a>{{/showPrev}}
+{{#showNext}}<a href="/?page={{new_counter}}">Next Page</a>{{/showNext}}
 </body>
 </html>

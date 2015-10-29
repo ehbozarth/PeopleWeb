@@ -14,11 +14,13 @@ import java.util.HashMap;
  * Created by zach on 10/19/15.
  */
 public class People {
+    static final int SHOW_COUNT = 20;
     public static void main(String[] args) {
         ArrayList<Person> people = new ArrayList();
 
         String fileContent = readFile("people.csv");
         String[] lines = fileContent.split("\n");
+
 
 
         for (String line : lines) {
@@ -42,17 +44,23 @@ public class People {
                     else{
                         counter = Integer.valueOf(offset);
                     }
-                    if(counter >= people.size()){
-                        Spark.halt(403);
-                    }
-                    else{
-                        ArrayList<Person> tempList = new ArrayList<Person>(people.subList(counter,counter+20));
-                        HashMap m = new HashMap();
-                        m.put("people", tempList);
-                        m.put("new_counter", counter+20);
-                        return new ModelAndView(m, "people.html");
-                    }
-                    return new ModelAndView(new HashMap<>(), "people.html");
+
+                    ArrayList<Person> tempList = new ArrayList<Person>(people.subList(
+                            Math.max(0,Math.min(people.size(),counter)),
+                            Math.max(0,Math.min(people.size(),counter+ SHOW_COUNT))
+                    ));
+                    HashMap m = new HashMap();
+                    m.put("people", tempList);
+                    m.put("old_counter", counter - SHOW_COUNT);
+                    m.put("new_counter", counter+ SHOW_COUNT);
+
+                    boolean showPrevious = counter > 0;
+                    m.put("showPrev", showPrevious);
+
+                    boolean isAtEnd = counter + SHOW_COUNT < people.size();
+                    m.put("showNext", isAtEnd);
+
+                    return new ModelAndView(m, "people.html");
                 },
                 new MustacheTemplateEngine()
         );//End of Spark.get() "/"
