@@ -26,7 +26,7 @@ public class PeopleTest {
     }
 
     @Test
-    public void testPerson() throws SQLException {
+    public void testPeople() throws SQLException {
         Connection conn = startConnection();
         People.insertPerson(conn, "Test first Name", "Test Last Name", "Test Email",
                 "Test country", "Test ip");
@@ -36,6 +36,7 @@ public class PeopleTest {
 
         assertTrue(personArrayList.size() == 1);
     }
+
 
 
 }
