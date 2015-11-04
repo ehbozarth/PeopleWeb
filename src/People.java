@@ -94,8 +94,6 @@ public class People {
         String fileContent = readFile("people.csv");
         String[] lines = fileContent.split("\n");
 
-
-
         for (String line : lines) {
             if (line == lines[0])
                 continue;

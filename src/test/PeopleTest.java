@@ -36,7 +36,4 @@ public class PeopleTest {
 
         assertTrue(personArrayList.size() == 1);
     }
-
-
-
 }
